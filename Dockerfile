@@ -1,18 +1,13 @@
-FROM debian:jessie
+FROM nginx:latest
 
-MAINTAINER "Dylan Lindgren" <dylan.lindgren@gmail.com>
+MAINTAINER "Junewon Park" <emptyzone@gmail.com>
 
 WORKDIR /tmp
 
-# Install Nginx
-RUN apt-get update -y && \
-    apt-get install -y nginx
-
 # Apply Nginx configuration
-ADD config/nginx.conf /opt/etc/nginx.conf
-ADD config/laravel /etc/nginx/sites-available/laravel
-RUN ln -s /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/laravel && \
-    rm /etc/nginx/sites-enabled/default
+ADD config/nginx.conf /etc/nginx/nginx.conf
+ADD config/default.conf /etc/nginx/conf.d/default.conf
+ADD config/upstream.conf /etc/nginx/conf.d/upstream.conf
 
 # Nginx startup script
 ADD config/nginx-start.sh /opt/bin/nginx-start.sh
@@ -26,4 +21,4 @@ EXPOSE 80
 EXPOSE 443
 
 WORKDIR /opt/bin
-ENTRYPOINT ["/opt/bin/nginx-start.sh"]
+CMD ["nginx"]
