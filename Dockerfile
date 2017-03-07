@@ -1,6 +1,6 @@
 FROM nginx:latest
 
-MAINTAINER "Junewon Park" <emptyzone@gmail.com>
+MAINTAINER "Dylan Lindgren" <dylan.lindgren@gmail.com>
 
 WORKDIR /tmp
 
